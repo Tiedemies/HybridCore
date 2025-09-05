@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environments
+venv/
+env/
+
+# Node / React
+node_modules/
+dist/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data / Persistence
+backend/data/
+frontend/.vite/
+frontend/.cache/
+*.chroma/
+
+# IDE
+.vscode/
+.idea/
+
+# Misc
+*.zip
+
