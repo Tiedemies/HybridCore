@@ -2,7 +2,7 @@ database:
   sqlite_path: "./data/core.db"
 
 embeddings:
-  model: "nomic-embed-text"
+  model: "snowflake-arctic-embed2:latest"
 
 chroma:
   persist_directory: "./data/chroma"
