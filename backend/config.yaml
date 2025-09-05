@@ -1,0 +1,8 @@
+database:
+  sqlite_path: "./data/core.db"
+
+embeddings:
+  model: "nomic-embed-text"
+
+chroma:
+  persist_directory: "./data/chroma"

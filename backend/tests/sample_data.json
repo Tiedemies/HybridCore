@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Power outage in Berlin",
+    "description": "A major power outage hit Berlin today, disrupting services.",
+    "timestamp": "2025-09-01T12:00:00",
+    "region": "Europe",
+    "country": "DE",
+    "subregion": "Berlin",
+    "domain": "Energy",
+    "space": "Services",
+    "layer": "Infra",
+    "cascading_effect": {"Tech.Org": 0.4, "Soc.Org": 0.2}
+  },
+  {
+    "title": "Disinformation campaign in Finland",
+    "description": "Coordinated disinformation targeting Finnish elections detected.",
+    "timestamp": "2025-09-02T09:00:00",
+    "region": "Europe",
+    "country": "FI",
+    "subregion": "Helsinki",
+    "domain": "Information",
+    "space": "Civic",
+    "layer": "Cognitive",
+    "cascading_effect": {"Soc.Cog": 0.7, "Tech.Org": 0.3}
+  }
+]
