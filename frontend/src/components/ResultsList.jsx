@@ -1,19 +1,24 @@
 import React from 'react'
 
 export default function ResultsList({ results, onSelect }) {
-  if (!results || !results.ids) return null
+  if (!results.length) return null
 
   return (
-    <div className="results-list">
+    <div style={{ marginBottom: '1rem' }}>
       <h2>Results</h2>
       <ul>
-        {results.ids[0].map((id, idx) => (
-          <li key={id}>
-            <strong>{id}</strong>
-            <button onClick={() => onSelect({
-              id,
-              metadata: results.metadatas[0][idx]
-            })}>Select</button>
+        {results.map((r, idx) => (
+          <li key={idx}>
+            <strong>{r.document}</strong>
+            <button
+              style={{ marginLeft: '0.5rem' }}
+              onClick={() => onSelect(r)}
+            >
+              Select
+            </button>
+            <pre style={{ background: '#eee', padding: '0.5rem' }}>
+              {JSON.stringify(r.metadata, null, 2)}
+            </pre>
           </li>
         ))}
       </ul>

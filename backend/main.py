@@ -4,8 +4,24 @@ from uuid import uuid4
 import db
 from models import EntryIn, EntryOut, SearchQuery
 from embeddings import add_to_chroma, search_chroma, collection
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI(title="CORE Prototype (Ollama + Chroma)")
+
+# --- CORS so the Vite dev server (5173) can call the API (8000) ---
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# -------------------------------------------------------------------
+
 
 # Initialize SQLite
 db.init_db()

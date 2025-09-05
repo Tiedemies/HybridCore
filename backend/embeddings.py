@@ -87,16 +87,33 @@ def add_to_chroma(entry_id: str, text: str, metadata: dict):
     )
 
 
+
+def _normalize_where(filters: dict | None):
+    """
+    Chroma 'where' must have exactly one top-level operator (e.g., {"$and":[...]}).
+    - If filters is falsy/empty, return None to omit 'where' entirely.
+    - If filters already uses an operator (keys starting with '$'), pass through.
+    - If filters is a simple mapping, convert to {"$and":[{k: {"$eq": v}}, ...]}.
+    """
+    if not filters:
+        return None
+    if any(str(k).startswith("$") for k in filters.keys()):
+        return filters  # assume caller provided a proper operator form
+    # Convert simple mapping to $and of $eq
+    return {"$and": [{k: {"$eq": v}} for k, v in filters.items()]}
+
+
 def search_chroma(query: str, filters: dict = None, top_k: int = 5):
-    """
-    Search using *Ollama* for the query embedding, not Chroma’s auto-embed.
-    This avoids ONNX downloads and keeps one embedding source of truth.
-    """
     qvec = embed_text(query or "")
-    results = collection.query(
-        query_embeddings=[qvec],             # <— not query_texts
-        n_results=top_k,
-        where=filters or {},
-        include=["metadatas", "documents", "distances"],
-    )
+    where = _normalize_where(filters)
+
+    kwargs = {
+        "query_embeddings": [qvec],
+        "n_results": top_k,
+        "include": ["metadatas", "documents", "distances"],
+    }
+    if where is not None:
+        kwargs["where"] = where
+
+    results = collection.query(**kwargs)
     return results

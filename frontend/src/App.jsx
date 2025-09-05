@@ -1,26 +1,26 @@
 import React, { useState } from 'react'
-import SearchBar from './components/SearchBar'
-import ResultsList from './components/ResultsList'
-import SelectionTray from './components/SelectionTray'
-import CoreBoard from './components/CoreBoard'
+import SearchBar from './components/SearchBar.jsx'
+import ResultsList from './components/ResultsList.jsx'
+import SelectionTray from './components/SelectionTray.jsx'
+import CoreBoard from './components/CoreBoard.jsx'
 
 export default function App() {
   const [results, setResults] = useState([])
-  const [selection, setSelection] = useState([])
+  const [selected, setSelected] = useState([])
 
-  const handleSelect = (entry) => {
-    if (!selection.find(s => s.id === entry.id)) {
-      setSelection([...selection, entry])
+  function handleSelect(entry) {
+    if (!selected.find((s) => s.id === entry.id)) {
+      setSelected([...selected, entry])
     }
   }
 
   return (
-    <div className="app">
+    <div style={{ fontFamily: 'sans-serif', padding: '2rem' }}>
       <h1>CORE Prototype</h1>
       <SearchBar setResults={setResults} />
       <ResultsList results={results} onSelect={handleSelect} />
-      <SelectionTray selection={selection} setSelection={setSelection} />
-      <CoreBoard selection={selection} />
+      <SelectionTray selected={selected} />
+      <CoreBoard selected={selected} />
     </div>
   )
 }

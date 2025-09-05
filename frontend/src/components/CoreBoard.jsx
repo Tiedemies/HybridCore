@@ -1,36 +1,31 @@
 import React from 'react'
 
-// Simple 3x3 grid board
-export default function CoreBoard({ selection }) {
-  const grid = [
-    ['Societal-Cognitive', 'Tech-Cognitive', 'Info-Cognitive'],
-    ['Societal-Org', 'Tech-Org', 'Info-Org'],
-    ['Societal-Infra', 'Tech-Infra', 'Info-Infra']
-  ]
-
+export default function CoreBoard({ selected }) {
+  // naive 3x3 layout for now
   return (
-    <div className="core-board">
-      <h2>Core Board</h2>
-      <table border="1" cellPadding="5">
-        <tbody>
-          {grid.map((row, i) => (
-            <tr key={i}>
-              {row.map(cell => (
-                <td key={cell} style={{ width: 150, height: 80, verticalAlign: 'top' }}>
-                  <strong>{cell}</strong>
-                  <ul>
-                    {selection.filter(item =>
-                      (item.metadata?.space + '-' + item.metadata?.layer) === cell.replace('-', '.')
-                    ).map(item => (
-                      <li key={item.id}>{item.metadata?.title}</li>
-                    ))}
-                  </ul>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <h2>Core Strategic Design Board</h2>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridGap: '1rem',
+          marginTop: '1rem'
+        }}
+      >
+        {Array.from({ length: 9 }).map((_, idx) => (
+          <div
+            key={idx}
+            style={{
+              border: '1px solid #ccc',
+              minHeight: '100px',
+              padding: '0.5rem'
+            }}
+          >
+            {selected[idx] ? selected[idx].document : `Cell ${idx + 1}`}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
